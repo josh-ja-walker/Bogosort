@@ -30,7 +30,6 @@ function SetUp()
     sizeInp.disabled = true;
     graph.style.width = "fit-content";
 
-    max = maxInp.value;
     GetTime();
 
     lineLengths = GenerateArray(sizeInp.value);
@@ -40,7 +39,7 @@ function SetUp()
     vLines = Array(lineLengths.length);
     for (let index = 0; index < lineLengths.length; index++) 
     {
-        vLines[index] = CreateLine(lineLengths[index], maxInp.value);
+        vLines[index] = CreateLine(lineLengths[index]);
     }
 
     clearButton.disabled = false;
