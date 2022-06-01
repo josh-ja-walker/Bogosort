@@ -13,30 +13,33 @@
     
     <body>
         <header>
-            <h1>> Bogosort</h1>
+            <h1>&blacktriangleright;Bogosort</h1>
         </header>
         
+        <br>
+        <br>
+        <br>
+    
         <div class="center-container">
-
             <form id="settings">
-                
-                <h4 id="iterations">Iterations: </h4>
-
+                <h4 id="iterations" style="width: fit-content; margin:0;">Iterations: </h4>
+    
                 <label id="size-label" for="length">Length of array: 25</label>        
                 <input id="length" type="range" min="2" max="50" value="25" oninput="SetLengthLabel()">
                 <br>
-                
-                <label id="sleep-label" for="time">Sleep time: 0.5s</label>
-                <input id="sleep-time" type="range" min="0.01" max="5" step="0.01" value="0.5" oninput="GetTime()"> 
-                <br>
-                
-                <button id="sort-button" onclick="SetUp()">Sort</button>
-                
-                <input type="reset" onclick="Reset()">
-                <button id="clear-button" onclick="Clear()">Clear</button>
             </form>
 
+            <span id="controls">
+                <button id="slower" onclick="SetTime(false)">-</button>
+                <button id="play-pause" onclick="PressPlayPause()">&#x23F5;</button>
+                <button id="stop" onclick="Stop()">&#x25A0;</button>
+                <button id="faster" onclick="SetTime(true)">+</button>
+            </span>
+        </div>
+        
+        <div class="center-container" style="width: 100%;">
             <div id="graph">
+                <div id="box"></div>
             </div>
         </div>
 

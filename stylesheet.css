@@ -1,12 +1,11 @@
 body {
-    background-color: #171717;
+    background-color: #151515;
     color: white;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 input [type="range"] {
     width: 10em;
-    
 }
 
 input[type="range"] {
@@ -26,6 +25,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 input[type="range"]::-moz-range-track {
     background-color: orangered;
+    border-radius: 10px;
     height: 10px;
 }
 
@@ -39,16 +39,66 @@ input[type="range"]::-webkit-slider-thumb {
 }
    
 input[type="range"]::-moz-range-thumb {
+    -webkit-appearance: none;
     height: 15px;
     width: 15px;
-    background: pink;
+    background: white;
     margin-top: -2.5px;
     border-radius: 50%;
 }
- 
+
+input[type="range"]:disabled::-webkit-slider-runnable-track {
+    background-color: rgb(255, 68, 0, 0.65);
+    border-radius: 10px;
+    height: 10px;
+}
+
+input[type="range"]:disabled:-moz-range-track {
+    background-color: rgb(255, 68, 0, 0.65);
+    border-radius: 10px;
+    height: 10px;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background: rgb(255, 255, 255, 0.65);
+    margin-top: -2.5px;
+    border-radius: 50%;
+}
+   
+input[type="range"]:disabled::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background: rgb(255, 255, 255, 0.65);
+    margin-top: -2.5px;
+    border-radius: 50%;
+}
+
+#controls {
+    border: orangered solid 0.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 1em;
+    margin-right: 23.25%;
+}
+
+#play-pause, #slower, #stop, #faster {
+    font-size: large;
+    color: white;
+    background-color: transparent;
+    border: 0;
+    border-right: orangered solid 0.1em;
+    width: 35px;
+    height: 35px;
+}
 
 #settings {
-    padding: 0.5em;
+    margin-right: 30px;
 }
 
 .center-container {
@@ -67,6 +117,24 @@ input[type="range"]::-moz-range-thumb {
                     linear-gradient(90deg, rgb(256, 256, 256, 0.5) .01rem, transparent .1rem);
     background-size: 0.75rem 0.75rem;
     background-position: 0.25rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100%;
+
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#box {
+    width: fit-content;
+    height: inherit;
+    border: 0;
+    border-left: white 0.3em solid;
+    border-right: white 0.3em solid;
+    background-color: rgb(0, 0, 0, 0.5);
 }
 
 .vLine {

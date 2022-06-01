@@ -1,35 +1,120 @@
-var lineLengths = [], vLines = [], sorting = false, interval, max = 25, min = 1;
-var sleepTime = 0;
+var lineLengths = [], vLines = [], sorting = false, interval;
+const max = 25, min = 1;
+
+const defaultSleepMult = 0.6, minSleep = 1, maxSleep = 1000;
+var sleepMult = defaultSleepMult; 
+var sleepTime = CalcSleep();
+console.log(sleepTime);
 
 const sizeInp = document.getElementById("length");
 
-const sortButton = document.getElementById("sort-button");
-const clearButton = document.getElementById("clear-button");
-clearButton.disabled = true;
+const faster = document.getElementById("faster");
+const slower = document.getElementById("slower");
 
-const graph = document.getElementById("graph");
-graph.style.width = "100%";
+// const sortButton = document.getElementById("sort-button");
+// const clearButton = document.getElementById("clear-button");
+// clearButton.disabled = true;
 
 const iterationsText = document.getElementById("iterations");
 iterations = 1;
 
-function GetTime()
-{
-    sleepTime = document.getElementById("sleep-time").value;
-    document.getElementById("sleep-label").innerHTML = "Sleep time: " + sleepTime + "s";
-    sleepTime *= 1000;
+var playing = true;
+var needClear = false;
 
-    if (sorting) 
+function PressPlayPause()
+{
+    if (sorting)
     {
-        clearInterval(interval);
-        interval = setInterval(Sort, sleepTime);
+        playing ? Pause(): Play();
     }
+    else if (!needClear)
+    {
+        SetUp();
+    }
+}
+
+function Stop()
+{
+    Reset();    
+    Pause();
+
+    for (const element of vLines) {
+        element.remove();
+    }
+
+    lineLengths = [];
+    vLines = [];
+    
+    iterations = 1;
+    iterationsText.innerHTML = "Iterations: "; 
+    
+    sorting = false;
+    needClear = false;
+
+    sleepMult = defaultSleepMult;
+
+
+    document.getElementById("settings").reset();
+    setTimeout(SetLengthLabel, 1);
+
+    sizeInp.disabled = false;
+
+    console.clear();
+}
+
+function SetTime(isFaster)
+{
+    const sleepIncrements = 0.2;
+
+    sleepMult += (isFaster ? -1 : 1) * sleepIncrements;
+    
+    if (sleepMult < 0)
+    {
+        sleepMult = 0;
+        return;
+    }
+    else if (sleepMult > 1)
+    {
+        sleepMult = 1;
+        return;
+    }
+
+    sleepMult = Math.round(sleepMult * 100) / 100;
+
+    sleepTime = CalcSleep();
+    
+    console.log(sleepTime);
+    
+    if (sorting && playing)
+    {
+        Pause();
+        Play();
+    }
+}
+
+function CalcSleep()
+{
+    return Math.round(Math.pow(Math.E, Math.log(maxSleep - minSleep + 1) * sleepMult) + minSleep - 1);
+}
+
+function Pause()
+{
+    clearInterval(interval);
+    playing = false;
+    document.getElementById("play-pause").innerHTML = "&#x23F5;";
+}
+
+function Play()
+{   
+    interval = setInterval(Sort, sleepTime)
+    
+    playing = true;
+    document.getElementById("play-pause").innerHTML = "&#x23F8;";
 }
 
 function Reset()
 {
-    setTimeout(GetTime, 1);
-    setTimeout(SetLengthLabel, 1);
+
 }
 
 function SetLengthLabel() 
@@ -39,26 +124,18 @@ function SetLengthLabel()
 
 function SetUp()
 {
-    sortButton.disabled = true;
     sizeInp.disabled = true;
-    graph.style.width = "fit-content";
-
-    GetTime();
 
     lineLengths = GenerateArray(sizeInp.value);
     
-    console.log(lineLengths);
-
     vLines = Array(lineLengths.length);
     for (let index = 0; index < lineLengths.length; index++) 
     {
         vLines[index] = CreateLine(lineLengths[index]);
     }
 
-    clearButton.disabled = false;
-    
     sorting = true;
-    interval = setInterval(Sort, sleepTime);
+    Play();
 }
 
 function GenerateArray(_arrLength)
@@ -79,9 +156,8 @@ function CreateLine(value)
 
     element.classList.add("vLine");
 
-    // element.style.borderLeftWidth = (graph.clientWidth / length)  + "px";
     SetLine(element, value);
-    graph.append(element);
+    document.getElementById("box").append(element);
 
     return element;
 }
@@ -101,8 +177,10 @@ function Sort()
 
     if (CheckArray(lineLengths, true)) 
     {
-        console.log("done in " + iterations);
-        clearInterval(interval);
+        Pause();
+        sorting = false;
+        needClear = true;
+        alert("Sorted!");
     }
 }
 
@@ -110,8 +188,6 @@ function ChangeLines()
 {
     ShuffleArray(lineLengths);
     
-    console.log(lineLengths);
-
     for (let index = 0; index < lineLengths.length; index++) 
     {
         SetLine(vLines[index], lineLengths[index]);
@@ -156,26 +232,4 @@ function CheckArray(array, isAsc)
     }
 
     return true;
-}
-
-function Clear()
-{
-    clearInterval(interval);
-
-    for (const element of vLines) {
-        element.remove();
-    }
-
-    lineLengths = [];
-    vLines = [];
-    iterations = 0;
-    sorting = false;
-
-    sortButton.disabled = false;
-    sizeInp.disabled = false;
-    clearButton.disabled = true;
-
-    graph.style.width = "100%";
-
-    console.clear();
 }
