@@ -28,8 +28,6 @@ function SetUp()
 {
     sortButton.disabled = true;
     sizeInp.disabled = true;
-    maxInp.disabled = true;
-    minInp.disabled = true;
     graph.style.width = "fit-content";
 
     max = maxInp.value;
@@ -163,8 +161,6 @@ function Clear()
 
     sortButton.disabled = false;
     sizeInp.disabled = false;
-    maxInp.disabled = false;
-    minInp.disabled = false;
     clearButton.disabled = true;
 
     graph.style.width = "100%";
