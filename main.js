@@ -15,13 +15,26 @@ iterations = 1;
 
 function GetTime()
 {
-    sleepTime = document.getElementById("sleep-time").value * 1000;
+    sleepTime = document.getElementById("sleep-time").value;
+    document.getElementById("sleep-label").innerHTML = "Sleep time: " + sleepTime + "s";
+    sleepTime *= 1000;
 
     if (sorting) 
     {
         clearInterval(interval);
         interval = setInterval(Sort, sleepTime);
     }
+}
+
+function Reset()
+{
+    setTimeout(GetTime, 1);
+    setTimeout(SetLengthLabel, 1);
+}
+
+function SetLengthLabel() 
+{
+    document.getElementById("size-label").innerHTML = "Length of array: " + sizeInp.value;
 }
 
 function SetUp()
