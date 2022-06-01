@@ -32,6 +32,7 @@ input {
 
 .vLine {
     height: 98%;
+    border-left-width: 5px;
     border-color: orangered;
     border-style: solid;
     margin: 1px;
