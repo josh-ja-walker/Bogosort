@@ -1,0 +1,40 @@
+body {
+    background-color: #171717;
+    color: white;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input {
+    width: 5em;
+}
+
+#settings {
+    padding: 0.5em;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#graph {
+    height: 10rem;
+    border: 0.2em orangered solid;
+    /* margin: 0.5em; */
+    padding: 0.5em;
+    padding-bottom: 0.25em;
+    background-image: linear-gradient(rgb(256, 256, 256, 0.5) .01rem, transparent .1rem), 
+                    linear-gradient(90deg, rgb(256, 256, 256, 0.5) .01rem, transparent .1rem);
+    background-size: 0.75rem 0.75rem;
+    background-position: 0.25rem;
+}
+
+.vLine {
+    height: 98%;
+    border-color: orangered;
+    border-style: solid;
+    margin: 1px;
+    float: left;
+    position: relative;
+}

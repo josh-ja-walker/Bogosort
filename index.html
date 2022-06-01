@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Everyone's favourite sorting algorithm!">
+      
+        <title>Bogosort Visualiser</title>
+        
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    
+    <body>
+        <header>
+            <h1>> Bogosort Visualiser</h1>
+        </header>
+        
+        <div class="center-container">
+
+            <form id="settings">
+                
+                <h4 id="iterations">Iterations: </h4>
+
+                <label for="length">Length of array:</label>
+                <input type="number" id="length" min="2" max="100" value="50">
+                <br>
+                
+                <label for="time">Sleep time (s):</label>
+                <input type="number" id="sleep-time" min="0.01" max="60" value="0.5" onchange="GetTime()">
+                <br>
+                
+                <button id="sort-button" onclick="SetUp()">Sort</button>
+                
+                <input type="reset">
+
+            </form>
+
+            <div id="graph">
+            </div>
+        </div>
+
+        <button id="clear-button" onclick="Clear()">Clear</button>
+        
+        <script src="main.js"></script>
+
+    </body>
+
+</html>
