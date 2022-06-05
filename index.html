@@ -9,6 +9,11 @@
         <title>Bogosort</title>
         
         <link rel="stylesheet" href="stylesheet.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="Favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="Favicon/favicon-16x16.png">
+        <link rel="manifest" href="Favicon/site.webmanifest">
     </head>
     
     <body>
@@ -19,16 +24,17 @@
         <br>
         <br>
         <br>
-    
+        
         <div class="center-container">
             <form id="settings">
-                <h4 id="iterations" style="width: fit-content; margin:0;">Iterations: </h4>
-    
-                <label id="size-label" for="length">Length of array: 25</label>        
+                <h4 id="iterations" style="width: fit-content; margin:0;">Iterations: 0</h4>
+                
+                <label id="size-label" for="length">Array size: 25</label>        
                 <input id="length" type="range" min="2" max="50" value="25" oninput="SetLengthLabel()">
-                <br>
             </form>
+        </div>
 
+        <div class="center-container">
             <span id="controls">
                 <button id="slower" onclick="SetTime(false)">-</button>
                 <button id="play-pause" onclick="PressPlayPause()">&#x23F5;</button>

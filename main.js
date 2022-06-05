@@ -1,19 +1,14 @@
-var lineLengths = [], vLines = [], sorting = false, interval;
+var lineLengths = [], vLines = [], sorting = false, interval, endTimeout;
 const max = 25, min = 1;
 
 const defaultSleepMult = 0.6, minSleep = 1, maxSleep = 1000;
 var sleepMult = defaultSleepMult; 
 var sleepTime = CalcSleep();
-console.log(sleepTime);
 
 const sizeInp = document.getElementById("length");
 
 const faster = document.getElementById("faster");
 const slower = document.getElementById("slower");
-
-// const sortButton = document.getElementById("sort-button");
-// const clearButton = document.getElementById("clear-button");
-// clearButton.disabled = true;
 
 const iterationsText = document.getElementById("iterations");
 iterations = 1;
@@ -35,8 +30,8 @@ function PressPlayPause()
 
 function Stop()
 {
-    Reset();    
     Pause();
+    clearTimeout(endTimeout);
 
     for (const element of vLines) {
         element.remove();
@@ -46,13 +41,12 @@ function Stop()
     vLines = [];
     
     iterations = 1;
-    iterationsText.innerHTML = "Iterations: "; 
+    iterationsText.innerHTML = "Iterations: 0"; 
     
     sorting = false;
     needClear = false;
 
     sleepMult = defaultSleepMult;
-
 
     document.getElementById("settings").reset();
     setTimeout(SetLengthLabel, 1);
@@ -112,14 +106,9 @@ function Play()
     document.getElementById("play-pause").innerHTML = "&#x23F8;";
 }
 
-function Reset()
-{
-
-}
-
 function SetLengthLabel() 
 {
-    document.getElementById("size-label").innerHTML = "Length of array: " + sizeInp.value;
+    document.getElementById("size-label").innerHTML = "Array size: " + String(sizeInp.value).padStart(2, '0');
 }
 
 function SetUp()
@@ -135,6 +124,7 @@ function SetUp()
     }
 
     sorting = true;
+    iterationsText.innerHTML = "Iterations: 1";
     Play();
 }
 
@@ -164,8 +154,8 @@ function CreateLine(value)
 
 function SetLine(element, value)
 {
-    element.style.height = ((value / max) * 100) + "%";
-    element.style.bottom = (((value / max) * 100) - 96) + "%";
+    element.style.height = ((value / max) * 95) + "%";
+    element.style.bottom = (((value / max) * 95) - 94) + "%";
 }
 
 function Sort() 
@@ -180,8 +170,14 @@ function Sort()
         Pause();
         sorting = false;
         needClear = true;
-        alert("Sorted!");
+
+        endTimeout = setTimeout(End, 1050);
     }
+}
+
+function End()
+{
+    alert("Sorted!");
 }
 
 function ChangeLines()
