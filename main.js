@@ -16,6 +16,11 @@ iterations = 1;
 var playing = true;
 var needClear = false;
 
+var sortNum = 0;
+
+var bubbleSortIndex = 0;
+var bubbleSwapped = false;
+
 function PressPlayPause()
 {
     if (sorting)
@@ -40,6 +45,9 @@ function Stop()
     lineLengths = [];
     vLines = [];
     
+    bubbleSortIndex = 0;
+    bubbleSwapped = false;
+
     iterations = 1;
     iterationsText.innerHTML = "Iterations: 0"; 
     
@@ -162,16 +170,34 @@ function Sort()
 {
     iterations += 1;
     iterationsText.innerHTML = "Iterations: " + iterations;
-    
+
+    sortNum = 2;
+
+    done = ChooseSort();
+
     ChangeLines();
 
-    if (CheckArray(lineLengths, true)) 
+    if (done) 
     {
         Pause();
         sorting = false;
         needClear = true;
 
         endTimeout = setTimeout(End, 1050);
+    }
+}
+
+function ChooseSort()
+{
+    switch (sortNum) {
+        case 1:
+            return Bogosort();
+        
+        case 2:
+            return BubbleSort(true);
+
+        default:
+            break;
     }
 }
 
@@ -182,8 +208,6 @@ function End()
 
 function ChangeLines()
 {
-    ShuffleArray(lineLengths);
-    
     for (let index = 0; index < lineLengths.length; index++) 
     {
         SetLine(vLines[index], lineLengths[index]);
@@ -195,33 +219,64 @@ function Rand(_min, _max)
     return Math.floor(Math.random() * (_max - _min) + _min);
 }
 
-function ShuffleArray(array)
+function Bogosort()
 {
-    let currentIndex = array.length,  randomIndex;
+    let currentIndex = lineLengths.length,  randomIndex;
     
     while (currentIndex != 0) {
     
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
     
-        Swap(array, currentIndex, randomIndex);
+        Swap(currentIndex, randomIndex);
     }
 
-    return array;
+    return CheckArray(true);
 }
 
-function Swap(array, firstIndex, secondIndex) 
+function BubbleSort(isAsc)
 {
-    var temp = array[firstIndex];
-    array[firstIndex] = array[secondIndex];
-    array[secondIndex] = temp;
-}
-
-function CheckArray(array, isAsc) 
-{
-    for (let index = 1; index < array.length; index++) 
+    if ((lineLengths[bubbleSortIndex - 1] > lineLengths[bubbleSortIndex] && isAsc) ) 
     {
-        if ((array[index - 1] > array[index] && isAsc) || (array[index - 1] < array[index] && !isAsc)) 
+        Swap(bubbleSortIndex - 1, bubbleSortIndex);
+        bubbleSwapped = true;
+    }
+    
+    if (bubbleSortIndex >= lineLengths.length - 1)
+    {
+        bubbleSortIndex = 0;
+
+        if (bubbleSwapped)
+        {
+            bubbleSwapped = false;
+            return false;
+        }
+        else 
+        {
+            return true;
+        }
+    }
+    else
+    {
+        bubbleSortIndex++;
+        return false;
+    }
+
+}
+
+function Swap(firstIndex, secondIndex) 
+{
+    var temp = lineLengths[firstIndex];
+    lineLengths[firstIndex] = lineLengths[secondIndex];
+    lineLengths[secondIndex] = temp;
+}
+
+function CheckArray(isAsc) 
+{
+    for (let index = 1; index < lineLengths.length; index++) 
+    {
+        if ((lineLengths[index - 1] > lineLengths[index] && isAsc) 
+        || (lineLengths[index - 1] < lineLengths[index] && !isAsc)) 
         {
             return false;
         }

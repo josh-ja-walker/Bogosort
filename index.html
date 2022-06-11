@@ -18,12 +18,8 @@
     
     <body>
         <header>
-            <h1>&blacktriangleright;Bogosort</h1>
+            <h1 style="text-indent: 1.5em; margin-bottom: 0;">&blacktriangleright;Bogosort</h1>
         </header>
-        
-        <br>
-        <br>
-        <br>
         
         <div class="center-container">
             <form id="settings">
@@ -33,7 +29,7 @@
                 <input id="length" type="range" min="2" max="50" value="25" oninput="SetLengthLabel()">
             </form>
         </div>
-
+        
         <div class="center-container">
             <span id="controls">
                 <button id="slower" onclick="SetTime(false)">-</button>
@@ -43,6 +39,9 @@
             </span>
         </div>
         
+        <br>
+        <br>
+
         <div class="center-container" style="width: 100%;">
             <div id="graph">
                 <div id="box"></div>
