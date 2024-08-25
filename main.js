@@ -1,5 +1,5 @@
 var lineLengths = [], vLines = [], sorting = false, interval, endTimeout;
-const max = 25, min = 1;
+var numLines = 25, min = 1;
 
 const defaultSleepMult = 0.6, minSleep = 1, maxSleep = 1000;
 var sleepMult = defaultSleepMult; 
@@ -17,9 +17,11 @@ var playing = true;
 var needClear = false;
 
 var sortNum = 0;
+var sortColors = ["orangered", "#06c"]
 
 var bubbleSortIndex = 0;
 var bubbleSwapped = false;
+
 
 function PressPlayPause()
 {
@@ -122,8 +124,9 @@ function SetLengthLabel()
 function SetUp()
 {
     sizeInp.disabled = true;
+    numLines = sizeInp.value;
 
-    lineLengths = GenerateArray(sizeInp.value);
+    lineLengths = GenerateArray(numLines);
     
     vLines = Array(lineLengths.length);
     for (let index = 0; index < lineLengths.length; index++) 
@@ -136,15 +139,14 @@ function SetUp()
     Play();
 }
 
-function GenerateArray(_arrLength)
+function GenerateArray(n)
 {
-    arr = Array(_arrLength);
-
-    for (let index = 0; index < _arrLength; index++)
-    {
-        arr[index] = Rand(min, max);
+    arr = [];
+    for (let i = 1; i <= n; i++) {
+        arr.push(i);
     }
 
+    Shuffle(arr);
     return arr;
 }
 
@@ -162,16 +164,14 @@ function CreateLine(value)
 
 function SetLine(element, value)
 {
-    element.style.height = ((value / max) * 95) + "%";
-    element.style.bottom = (((value / max) * 95) - 94) + "%";
+    element.style.height = ((value / numLines) * 95) + "%";
+    // element.style.bottom = (((value / max) * 95) - 94) + "%";
 }
 
 function Sort() 
 {
     iterations += 1;
     iterationsText.innerHTML = "Iterations: " + iterations;
-
-    sortNum = 2;
 
     done = ChooseSort();
 
@@ -187,13 +187,20 @@ function Sort()
     }
 }
 
+function SetSort(i) {
+    if (!sorting) {
+        sortNum = i;
+        document.body.style.setProperty('--main-color', sortColors[sortNum])
+    }
+}
+
 function ChooseSort()
 {
     switch (sortNum) {
-        case 1:
+        case 0:
             return Bogosort();
         
-        case 2:
+        case 1:
             return BubbleSort(true);
 
         default:
@@ -219,18 +226,21 @@ function Rand(_min, _max)
     return Math.floor(Math.random() * (_max - _min) + _min);
 }
 
-function Bogosort()
+function Shuffle(array)
 {
-    let currentIndex = lineLengths.length,  randomIndex;
+    let currentIndex = array.length,  randomIndex;
     
     while (currentIndex != 0) {
-    
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
     
-        Swap(currentIndex, randomIndex);
+        SwapArr(currentIndex, randomIndex, array);
     }
+}
 
+function Bogosort()
+{
+    Shuffle(lineLengths);
     return CheckArray(true);
 }
 
@@ -266,9 +276,14 @@ function BubbleSort(isAsc)
 
 function Swap(firstIndex, secondIndex) 
 {
-    var temp = lineLengths[firstIndex];
-    lineLengths[firstIndex] = lineLengths[secondIndex];
-    lineLengths[secondIndex] = temp;
+    SwapArr(firstIndex, secondIndex, lineLengths);
+}
+
+function SwapArr(i, j, arr) 
+{
+    var temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
 }
 
 function CheckArray(isAsc) 

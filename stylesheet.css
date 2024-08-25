@@ -4,12 +4,42 @@ body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-input [type="range"] {
+:root {
+    --main-color: orangered;
+}
+
+#sorts {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+#sorts button {
+    font-size: x-large;
+    font-weight: 700;
+
+    padding: 0.2em;
+
+    border: 0;
+
+    background-color: transparent;
+    color: white;
+}
+
+#sorts button:hover {
+    color: lightgray;
+}
+
+
+input[type="range"] {
     width: 10em;
 }
 
 input[type="range"] {
-    -webkit-appearance: none;
+    appearance: none;
     background-color: transparent;
 }
    
@@ -18,13 +48,13 @@ input[type="range"]:focus {
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-    background-color: orangered;
+    background-color: var(--main-color);
     border-radius: 10px;
     height: 10px;
 }
 
 input[type="range"]::-moz-range-track {
-    background-color: orangered;
+    background-color: var(--main-color);
     border-radius: 10px;
     height: 10px;
 }
@@ -39,7 +69,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
    
 input[type="range"]::-moz-range-thumb {
-    -webkit-appearance: none;
+    appearance: none;
     height: 15px;
     width: 15px;
     background: white;
@@ -47,38 +77,8 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 50%;
 }
 
-input[type="range"]:disabled::-webkit-slider-runnable-track {
-    background-color: rgb(255, 68, 0, 0.65);
-    border-radius: 10px;
-    height: 10px;
-}
-
-input[type="range"]:disabled:-moz-range-track {
-    background-color: rgb(255, 68, 0, 0.65);
-    border-radius: 10px;
-    height: 10px;
-}
-
-input[type="range"]:disabled::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 15px;
-    width: 15px;
-    background: rgb(255, 255, 255, 0.65);
-    margin-top: -2.5px;
-    border-radius: 50%;
-}
-   
-input[type="range"]:disabled::-moz-range-thumb {
-    -webkit-appearance: none;
-    height: 15px;
-    width: 15px;
-    background: rgb(255, 255, 255, 0.65);
-    margin-top: -2.5px;
-    border-radius: 50%;
-}
-
 #controls {
-    border: orangered solid 0.2em;
+    border: var(--main-color) solid 0.2em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,11 +89,18 @@ input[type="range"]:disabled::-moz-range-thumb {
 #play-pause, #slower, #stop, #faster {
     font-size: large;
     color: white;
+    
     background-color: transparent;
+
     border: 0;
-    border-right: orangered solid 0.1em;
+    border-right: var(--main-color) solid 0.1em;
+    
     width: 35px;
     height: 35px;
+}
+
+#play-pause:hover, #slower:hover, #stop:hover, #faster:hover {
+    background-color: #282727;
 }
 
 #settings {
@@ -112,10 +119,11 @@ input[type="range"]:disabled::-moz-range-thumb {
 
 #graph {
     height: 17.5rem;
-    border: 0.2em orangered solid;
+    border: 0.2em var(--main-color) solid;
     overflow: hidden;
+    
     padding: 0.5em;
-    padding-bottom: 0.25em;
+
     background-image: linear-gradient(rgb(256, 256, 256, 0.5) .01rem, transparent .1rem), 
                     linear-gradient(90deg, rgb(256, 256, 256, 0.5) .01rem, transparent .1rem);
     background-size: 0.75rem 0.75rem;
@@ -129,9 +137,6 @@ input[type="range"]:disabled::-moz-range-thumb {
 
     margin-left: 10%;
     margin-right: 10%;
-
-    /* position: relative; */
-    /* top: 3.5em; */
 }
 
 #box {
@@ -146,14 +151,20 @@ input[type="range"]:disabled::-moz-range-thumb {
     padding-right: 2px;
 
     background-color: rgb(0, 0, 0, 0.5);
+
+    transform: scaleY(-1)
 }
 
 .vLine {
     height: 98%;
+    top: 1px;
+
     border-left-width: 10px;
-    border-color: orangered;
+    border-color: var(--main-color);
     border-style: solid;
+    
     margin: 1px;
+    
     float: left;
     position: relative;
 }

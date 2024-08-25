@@ -18,8 +18,21 @@
     
     <body>
         <header>
-            <h1 style="text-indent: 1.5em; margin-bottom: 0;">&blacktriangleright;Bogosort</h1>
+            <div id="sorts">
+                
+                <button id="bogo" onclick="SetSort(0)">
+                    <span style="color: orangered">&blacktriangleright;</span>
+                    Bogosort
+                </button>
+
+                <button id="bubble" onclick="SetSort(1)">
+                    <span style="color: #06c">&blacktriangleright;</span>
+                    Bubblesort
+                </button>
+                
+            </div>
         </header>
+        
         
         <div class="center-container">
             <form id="settings">
@@ -32,10 +45,10 @@
         
         <div class="center-container">
             <span id="controls">
-                <button id="slower" onclick="SetTime(false)">-</button>
+                <button id="slower" onclick="SetTime(false)">&#x23EA;&#xFE0E;</button>
                 <button id="play-pause" onclick="PressPlayPause()">&#x23F5;</button>
                 <button id="stop" onclick="Stop()">&#x25A0;</button>
-                <button id="faster" onclick="SetTime(true)">+</button>
+                <button id="faster" onclick="SetTime(true)">&#x23E9;&#xFE0E;</button>
             </span>
         </div>
         
